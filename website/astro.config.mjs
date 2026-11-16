@@ -1,20 +1,22 @@
 import { defineConfig } from "astro/config";
 import starlight from "@astrojs/starlight";
-import tailwind from "@astrojs/tailwind";
+import tailwind from "tailwindcss";
+import autoprefixer from "autoprefixer";
 
 // https://astro.build/config
 export default defineConfig({
   site: "https://binsider.dev",
+  vite: { css: { postcss: { plugins: [tailwind(), autoprefixer()] } } },
   integrations: [
     starlight({
       title: "Binsider",
-      social: {
-        github: "https://github.com/orhun/binsider",
-        mastodon: "https://fosstodon.org/@orhun",
-        "x.com": "https://twitter.com/orhundev",
-        linkedin: "https://www.linkedin.com/in/orhunp",
-        discord: "https://discord.gg/zphNxEcEK7",
-      },
+      social: [
+        { icon: "github", label: "GitHub", href: "https://github.com/orhun/binsider" },
+        { icon: "mastodon", label: "Mastodon", href: "https://fosstodon.org/@orhun" },
+        { icon: "x.com", label: "X", href: "https://twitter.com/orhundev" },
+        { icon: "linkedin", label: "LinkedIn", href: "https://www.linkedin.com/in/orhunp" },
+        { icon: "discord", label: "Discord", href: "https://discord.gg/zphNxEcEK7" },
+      ],
       logo: {
         dark: "./src/assets/binsider-logo-dark.png",
         light: "./src/assets/binsider-logo-light.png",
@@ -32,7 +34,6 @@ export default defineConfig({
       components: {
         Head: "./src/components/Head.astro",
         Header: "./src/components/Header.astro",
-        Header: "./src/components/Header.astro",
         Hero: "./src/components/Hero.astro",
         Footer: "./src/components/Footer.astro",
       },
@@ -44,36 +45,23 @@ export default defineConfig({
       sidebar: [
         {
           label: "Getting Started",
-          autogenerate: {
-            directory: "getting-started",
-          },
+          items: [{ autogenerate: { directory: "getting-started" } }],
         },
         {
           label: "Installation",
-          collapsed: true,
-          autogenerate: {
-            directory: "installation",
-          },
+          items: [{ autogenerate: { directory: "installation" } }],
         },
         {
           label: "Usage",
-          autogenerate: {
-            directory: "usage",
-          },
+          items: [{ autogenerate: { directory: "usage" } }],
         },
         {
           label: "Blog",
-          collapsed: true,
-          autogenerate: {
-            directory: "blog",
-          },
+          items: [{ autogenerate: { directory: "blog" } }],
         },
         {
           label: "Extras",
-          collapsed: true,
-          autogenerate: {
-            directory: "extras",
-          },
+          items: [{ autogenerate: { directory: "extras" } }],
         },
         "pricing",
       ],
@@ -81,6 +69,5 @@ export default defineConfig({
         baseUrl: "https://github.com/orhun/binsider/edit/main/website",
       },
     }),
-    tailwind({ applyBaseStyles: false }),
   ],
 });
